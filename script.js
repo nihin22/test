@@ -27,18 +27,26 @@ document.getElementById('analyzeBtn').addEventListener('click', () => {
         return;
     }
 
-    // Find if this Pokémon evolves into another (where evolves_from_species_id matches current species_id)
+    // Find if this Pokémon evolves into another
     const evolution = pokemonData.find(p => p.evolves_from_species_id === current.species_id);
 
     displayResults(current, evolution);
 });
+
+function getPokemonImage(p) {
+    const id = p.species_id || p.id;
+    if (id && id <= 721) {
+        return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+    }
+    return p.url_image || '';
+}
 
 function displayResults(curr, evo) {
     const resultContainer = document.getElementById('resultContainer');
     resultContainer.classList.remove('hidden');
 
     // Current Pokémon details
-    document.getElementById('currImg').src = curr.url_image || '';
+    document.getElementById('currImg').src = getPokemonImage(curr);
     document.getElementById('currName').textContent = capitalize(curr.pokemon);
     document.getElementById('currTypes').textContent = `Type: ${curr.type_1}${curr.type_2 ? '/' + curr.type_2 : ''}`;
     document.getElementById('currStats').innerHTML = getStatsHTML(curr);
@@ -57,7 +65,7 @@ function displayResults(curr, evo) {
     }
 
     evoBox.style.opacity = '1';
-    document.getElementById('evoImg').src = evo.url_image || '';
+    document.getElementById('evoImg').src = getPokemonImage(evo);
     document.getElementById('evoName').textContent = capitalize(evo.pokemon);
     document.getElementById('evoTypes').textContent = `Type: ${evo.type_1}${evo.type_2 ? '/' + evo.type_2 : ''}`;
     document.getElementById('evoStats').innerHTML = getStatsHTML(evo);
