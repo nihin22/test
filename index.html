@@ -8,45 +8,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
+    <div class="app-background"></div>
     <div class="container">
         <header>
-            <h1>Should I Evolve This Pokémon?</h1>
-            <p>Select or search for a Pokémon to analyze its stats before and after evolution!</p>
+            <h1>⚡ Should I Evolve This Pokémon? ⚡</h1>
+            <p>Analyze your Pokémon's stats, types, and power progression before pressing evolve!</p>
         </header>
 
         <div class="search-section">
-            <input type="text" id="pokemonSearch" placeholder="Search Pokémon (e.g., Pikachu, Bulbasaur)..." list="pokemonList">
-            <datalist id="pokemonList"></datalist>
-            <button id="analyzeBtn">Analyze Evolution</button>
+            <div class="search-box">
+                <input type="text" id="pokemonSearch" placeholder="Type Pokémon name (e.g. Pikachu, Charmander)..." list="pokemonList" autocomplete="off">
+                <datalist id="pokemonList"></datalist>
+                <button id="analyzeBtn">Analyze</button>
+            </div>
         </div>
 
         <div id="resultContainer" class="hidden">
             <div class="comparison-card">
-                <div class="pokemon-box" id="currentPokemonBox">
-                    <h2>Current Pokémon</h2>
+                <!-- Current Pokémon -->
+                <div class="pokemon-card" id="currentCard">
+                    <div class="card-header">
+                        <h2>Current</h2>
+                        <span class="badge" id="currTypeBadge"></span>
+                    </div>
                     <div class="img-container">
                         <img id="currImg" src="" alt="Current Pokémon">
                     </div>
                     <h3 id="currName"></h3>
-                    <p id="currTypes"></p>
-                    <ul class="stats-list" id="currStats"></ul>
+                    <div class="stats-container" id="currStats"></div>
                 </div>
 
-                <div class="vs-arrow">➔</div>
+                <!-- VS Arrow Divider -->
+                <div class="vs-divider">
+                    <div class="vs-circle">VS</div>
+                </div>
 
-                <div class="pokemon-box" id="evolutionPokemonBox">
-                    <h2>Evolved Form</h2>
+                <!-- Evolved Pokémon -->
+                <div class="pokemon-card" id="evolutionCard">
+                    <div class="card-header">
+                        <h2>Evolved</h2>
+                        <span class="badge" id="evoTypeBadge"></span>
+                    </div>
                     <div class="img-container">
                         <img id="evoImg" src="" alt="Evolved Pokémon">
                     </div>
                     <h3 id="evoName"></h3>
-                    <p id="evoTypes"></p>
-                    <ul class="stats-list" id="evoStats"></ul>
+                    <div class="stats-container" id="evoStats"></div>
                 </div>
             </div>
 
             <div class="verdict-box" id="verdictBox">
-                <h2>Verdict</h2>
+                <h3>Evolution Verdict</h3>
                 <p id="verdictText"></p>
             </div>
         </div>
